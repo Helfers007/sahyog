@@ -1,16 +1,14 @@
 # sahyog
 
-A new Flutter project.
+Some of the basics details
+Flutter SDK Version :: 3.0.1
+Gradle version :: https\://services.gradle.org/distributions/gradle-7.4-all.zip
 
-## Getting Started
+Some libraries /Packeages used ::
+get: ^4.6.5 ==> Getx is used for state management, route management , dependency injection
+firebase_database: ^9.1.0 ==> firebase database is used to store creadentials and every sort of data
+firebase_auth: ^3.6.2 ==> It will be used to verify phone numbers
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Currently prepared Login / Signup screen for civilians without any textfield validation
+If you entered any incorrect info in login ,you will not allow to move to homepage
+In SignUp process , we have currently ByPASS the OTP verification, so any number will be considered verified.
