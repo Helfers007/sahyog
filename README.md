@@ -1,12 +1,6 @@
 # sahyog
 
-<<<<<<< HEAD
-Some of the basics details
-
-=======
 ##Some of the basics details
-
-> > > > > > > 32f30e1ed7441e44537399820dbe848b261d8441
 
 <ul>
   <li>Flutter SDK Version :: 3.0.1 </li>
@@ -25,10 +19,3 @@ In SignUp process , we have currently ByPASS the OTP verification, so any number
 ![Screenshot_1659797622](https://user-images.githubusercontent.com/110728962/183255274-e79cef18-014e-4816-8d6b-48dcbcde4530.png)
 ![Screenshot_1659797662](https://user-images.githubusercontent.com/110728962/183255275-9e958fc0-d0e9-43be-9425-d6518711562b.png)
 ![Screenshot_1659797669](https://user-images.githubusercontent.com/110728962/183255276-42b2873d-a0d7-4b2b-a7c1-c3d8434af0dd.png)
-<<<<<<< HEAD
-
-# ...done2
-
-....
-
-> > > > > > > 32f30e1ed7441e44537399820dbe848b261d8441
