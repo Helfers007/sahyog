@@ -5,7 +5,9 @@ Some of the basics details
 
 =======
 ##Some of the basics details
->>>>>>> 32f30e1ed7441e44537399820dbe848b261d8441
+
+> > > > > > > 32f30e1ed7441e44537399820dbe848b261d8441
+
 <ul>
   <li>Flutter SDK Version :: 3.0.1 </li>
 <li>Gradle version :: https\://services.gradle.org/distributions/gradle-7.4-all.zip</li>
@@ -25,7 +27,8 @@ In SignUp process , we have currently ByPASS the OTP verification, so any number
 ![Screenshot_1659797669](https://user-images.githubusercontent.com/110728962/183255276-42b2873d-a0d7-4b2b-a7c1-c3d8434af0dd.png)
 <<<<<<< HEAD
 
-...done
-=======
+# ...done2
+
 ....
->>>>>>> 32f30e1ed7441e44537399820dbe848b261d8441
+
+> > > > > > > 32f30e1ed7441e44537399820dbe848b261d8441
