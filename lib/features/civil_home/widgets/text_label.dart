@@ -4,7 +4,8 @@ import 'package:flutter/src/widgets/framework.dart';
 
 class TextLabel extends StatelessWidget {
   final String text;
-  TextLabel({required this.text});
+  final Color textColor;
+  TextLabel({required this.text, this.textColor = Colors.black});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class TextLabel extends StatelessWidget {
       padding: const EdgeInsets.only(top: 8.0, left: 12),
       child: Text(
         text,
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: TextStyle(fontWeight: FontWeight.bold, color: textColor),
       ),
     );
   }

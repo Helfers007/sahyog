@@ -2,6 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:sahyog/commons/constants/global_variables.dart';
+import 'package:sahyog/commons/global_controller.dart';
 import 'package:sahyog/features/civil_home/screens/civil_homepage.dart';
 
 enum CivilAuth { login, signup }
@@ -13,7 +16,7 @@ class CivilAuthController extends GetxController {
   var passwordController = TextEditingController();
   var nameController = TextEditingController();
   CivilAuth civilAuth = CivilAuth.login;
-
+  GlobalController globalController = Get.find();
   late DatabaseReference civilCredRef;
 
   @override
@@ -40,9 +43,12 @@ class CivilAuthController extends GetxController {
       "name": nameController.text,
       "phoneNum": phoneController.text,
       "password": passwordController.text
-    }).whenComplete(() => Get.off(CivilHomePage(
-          phoneNum: phoneController.text,
-        )));
+    }).whenComplete(() {
+      globalController.name.value = nameController.text;
+      globalController.password.value = passwordController.text;
+      globalController.phoneNumber.value = phoneController.text;
+      saveDetails();
+    });
   }
 
   loginCheckCred() async {
@@ -50,28 +56,25 @@ class CivilAuthController extends GetxController {
     print(passwordController.text);
     print(phoneController.text);
 
-    DataSnapshot data =
-        await civilCredRef.child(phoneController.text).child("password").get();
+    DataSnapshot data = await civilCredRef.child(phoneController.text).get();
 
     bool isUserExist = data.exists;
 
     if (isUserExist) {
-      if (data.value == passwordController.text) {
-        Get.off(CivilHomePage(
-          phoneNum: phoneController.text,
-        ));
+      if (data.child("password").value == passwordController.text) {
+        globalController.name.value = data.child("name").value.toString();
+        globalController.password.value = passwordController.text;
+        globalController.phoneNumber.value = phoneController.text;
+        saveDetails();
       }
     }
   }
-  //  checkNames() {
-  //   print("CHECK NAMES");
-  //   var isValid = nameFormKey.currentState!.validate();
-  //   if (!isValid) {
-  //     return;
-  //   }
-  //   nameFormKey.currentState!.save();
-  //   Get.back();
-  //   Get.to(GamePage());
-  // }
 
+  saveDetails() async {
+    var box = await Hive.openBox(GlobalVariables.userDetailBox);
+    box.put(GlobalVariables.name, globalController.name.value);
+    box.put(GlobalVariables.phoneNumber, globalController.phoneNumber.value);
+    box.put(GlobalVariables.password, globalController.password.value);
+    Get.off(CivilHomePage());
+  }
 }

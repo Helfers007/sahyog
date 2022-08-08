@@ -21,4 +21,10 @@ class GlobalVariables {
   // static const Color greyBackgroundCOlor = Color(0xffebecee);
   //static var selectedNavBarColor = Colors.cyan[800]!;
   // static const unselectedNavBarColor = Colors.black87;
+
+  /// HIVE BOX DETAILS
+  static String userDetailBox = "userDetails";
+  static String phoneNumber = "phoneNumber";
+  static String name = "name";
+  static String password = "password";
 }

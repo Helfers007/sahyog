@@ -1,29 +1,40 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:sahyog/commons/global_controller.dart';
 import 'package:sahyog/features/civil_home/models/register_problem_model.dart';
+import 'package:sahyog/features/civil_home/widgets/text_label.dart';
 
 class RegisterProblemController extends GetxController {
   var textMessageController = TextEditingController();
+  var numOfPersonController = TextEditingController();
+  GlobalController globalController = Get.find();
 
   late RegisterProblem problemData;
   late bool serviceEnabled;
   late LocationPermission permission;
   late Position position;
+  bool isGotLocation = false;
 
   //Obeservable
+  RxString name = 'person name'.obs;
   RxDouble longitude = 0.0.obs;
   RxDouble latitude = 0.0.obs;
   RxString address = 'loading'.obs;
 
   // @override
-  // void onInit() {
+  // onInit() {
   //   super.onInit();
-  //   getUpdatePositionDetail();
+
   // }
 
   getUpdatePositionDetail() {
+    name.value = globalController.name.value;
+    print(
+        "checking ${globalController.name.value} ${globalController.phoneNumber.value} ${globalController.password.value}");
+    update();
     print("updating again again ");
     registerProblem();
   }
@@ -43,8 +54,7 @@ class RegisterProblemController extends GetxController {
         } else {
           if (permission == LocationPermission.deniedForever) {
             // Permissions are denied forever, handle appropriately.
-            Future.error(
-                'Location permissions are permanently denied, we cannot request permissions.');
+            showNoLocationPermission();
           } else {}
         }
       }
@@ -52,20 +62,82 @@ class RegisterProblemController extends GetxController {
     Position position = await Geolocator.getCurrentPosition();
     print("position is :: $position");
     longitude.value = position.longitude;
-    longitude.value = position.latitude;
-    address.value = DateTime.now().toString();
-    List<Placemark> placemarks =
-        await placemarkFromCoordinates(longitude.value, longitude.value);
-    print("PLACEMARKS : $placemarks");
-
+    latitude.value = position.latitude;
     update();
+    try {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(latitude.value, longitude.value);
+      Placemark place = placemarks[0];
+      print(place);
+      address.value =
+          "${place.locality}, ${place.thoroughfare}, ${place.subAdministrativeArea}, ${place.administrativeArea}, ${place.postalCode}";
+    } on Exception catch (e) {
+      // TODO
+    }
+    isGotLocation = true;
+    update();
+  }
 
-    problemData = RegisterProblem(
-        textMessage: "Stuck in orest",
-        latitude: position.latitude,
-        longitude: position.longitude,
-        numOfPerson: 1);
+  showNoLocationPermission() {
+    Get.showSnackbar(GetSnackBar(
+      duration: Duration(seconds: 2),
+      messageText: TextLabel(text: "Please allow location permission"),
+      backgroundColor: Colors.redAccent,
+    ));
+    Get.back();
+  }
 
-    print(problemData.textMessage);
+  registerProblemFinal() async {
+    if (textMessageController.text.trim().isNotEmpty &&
+        numOfPersonController.text.trim().isNotEmpty &&
+        isGotLocation) {
+      problemData = RegisterProblem(
+          by: name.value,
+          textMessage: textMessageController.text.trim(),
+          latitude: latitude.value,
+          longitude: longitude.value,
+          numOfPerson: int.tryParse(numOfPersonController.text.trim())!,
+          address: address.value);
+
+      DatabaseReference dbref;
+      dbref = FirebaseDatabase.instance.ref("problemsData");
+      var problemIdRef = dbref.push();
+      problemIdRef.set({
+        "by": problemData.by,
+        "textMessage": problemData.textMessage,
+        "longitude": problemData.longitude,
+        "latitude": problemData.latitude,
+        "address": problemData.address,
+        "numOfPerson": problemData.numOfPerson
+      }).then((value) {
+        var problemId = problemIdRef.key;
+        dbref = FirebaseDatabase.instance.ref("civilCred");
+
+        dbref
+            .child(globalController.phoneNumber.value)
+            .child("problems")
+            .child(problemId!)
+            .set({"status": "open"});
+      }).then((value) {
+        Get.back();
+        Get.showSnackbar(GetSnackBar(
+          duration: Duration(seconds: 2),
+          messageText: TextLabel(
+            text: "Problem Registered Successully",
+            textColor: Colors.white,
+          ),
+          backgroundColor: Colors.green,
+        ));
+      });
+    } else {
+      Get.showSnackbar(GetSnackBar(
+        duration: Duration(seconds: 2),
+        messageText: TextLabel(
+          text: "Num of person or problem, location cannot be empty",
+          textColor: Colors.white,
+        ),
+        backgroundColor: Colors.redAccent,
+      ));
+    }
   }
 }

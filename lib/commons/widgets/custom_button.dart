@@ -10,18 +10,24 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: GlobalVariables.secondaryColor),
-      child: FlatButton(
-        child: Text(
-          text,
-          style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            color: GlobalVariables.secondaryColor),
+        child: FlatButton(
+          splashColor: Colors.transparent,
+          focusColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          child: Text(
+            text,
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
+          ),
+          onPressed: onTap,
         ),
-        onPressed: onTap,
       ),
     );
   }

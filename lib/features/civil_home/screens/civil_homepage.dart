@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:sahyog/commons/global_controller.dart';
+import 'package:sahyog/commons/widgets/custom_button.dart';
 import 'package:sahyog/features/civil_home/controllers/register_problem_controller.dart';
 import 'package:sahyog/features/civil_home/screens/register_problem_page.dart';
+import 'package:sahyog/features/civil_home/widgets/text_label.dart';
 
 class CivilHomePage extends StatelessWidget {
-  final String phoneNum;
-  CivilHomePage({Key? key, required this.phoneNum}) : super(key: key);
+  CivilHomePage({Key? key}) : super(key: key);
+  GlobalController globalController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +21,18 @@ class CivilHomePage extends StatelessWidget {
         ),
         body: ListView(
           children: [
-            ElevatedButton(
-                onPressed: () {
+            TextLabel(text: "Currently ,only register problem available"),
+            TextLabel(text: "Name : ${globalController.name}"),
+            TextLabel(text: "Password : ${globalController.password}"),
+            TextLabel(text: "Phone Number : ${globalController.phoneNumber}"),
+            SizedBox(
+              height: 20,
+            ),
+            CustomButton(
+                text: "Register Problem",
+                onTap: () {
                   Get.to(RegisterProblemPage());
-                },
-                child: Text("Register a problem"))
+                })
           ],
         ));
   }
