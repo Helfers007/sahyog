@@ -10,8 +10,6 @@ class CivilHomePage extends StatelessWidget {
   final String phoneNum;
   CivilHomePage({Key? key, required this.phoneNum}) : super(key: key);
 
-  var registerProblemController = Get.put(RegisterProblemController());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +22,7 @@ class CivilHomePage extends StatelessWidget {
                 onPressed: () {
                   Get.to(RegisterProblemPage());
                 },
-                child: Text("Register a prbolem"))
+                child: Text("Register a problem"))
           ],
         ));
   }

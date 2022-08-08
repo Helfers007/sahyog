@@ -23,8 +23,8 @@ class MyApp extends StatelessWidget {
           primary: GlobalVariables.secondaryColor,
         ),
         appBarTheme: const AppBarTheme(
-            elevation: 0,
-            iconTheme: IconThemeData(color: GlobalVariables.secondaryColor)),
+          elevation: 0,
+        ),
       ),
       home: AuthPage(),
       debugShowCheckedModeBanner: false,

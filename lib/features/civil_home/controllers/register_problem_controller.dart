@@ -1,12 +1,32 @@
+import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:sahyog/features/civil_home/models/register_problem_model.dart';
 
 class RegisterProblemController extends GetxController {
+  var textMessageController = TextEditingController();
+
   late RegisterProblem problemData;
   late bool serviceEnabled;
   late LocationPermission permission;
   late Position position;
+
+  //Obeservable
+  RxDouble longitude = 0.0.obs;
+  RxDouble latitude = 0.0.obs;
+  RxString address = 'loading'.obs;
+
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   getUpdatePositionDetail();
+  // }
+
+  getUpdatePositionDetail() {
+    print("updating again again ");
+    registerProblem();
+  }
 
   registerProblem() async {
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -31,7 +51,14 @@ class RegisterProblemController extends GetxController {
     }
     Position position = await Geolocator.getCurrentPosition();
     print("position is :: $position");
-    position;
+    longitude.value = position.longitude;
+    longitude.value = position.latitude;
+    address.value = DateTime.now().toString();
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(longitude.value, longitude.value);
+    print("PLACEMARKS : $placemarks");
+
+    update();
 
     problemData = RegisterProblem(
         textMessage: "Stuck in orest",
