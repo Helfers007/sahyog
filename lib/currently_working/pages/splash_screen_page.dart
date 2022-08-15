@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:sahyog/commons/constants/global_variables.dart';
-import 'package:sahyog/commons/global_controller.dart';
+import 'package:sahyog/currently_working/controllers/splash_screen_controller.dart';
+import 'package:sahyog/currently_working/global_variables.dart';
 
-class SplashScreen extends StatelessWidget {
-  SplashScreen({Key? key}) : super(key: key);
+class SplashScreenPage extends StatelessWidget {
   var globalController = Get.put(GlobalController());
 
   @override
@@ -15,7 +12,7 @@ class SplashScreen extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(gradient: GlobalVariables.backGroundGradient),
+        decoration: BoxDecoration(gradient: GV.backGroundGradient),
         child: Center(
           child: Image.asset(
             "assets/logo.png",

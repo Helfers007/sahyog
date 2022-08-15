@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sahyog/commons/constants/global_variables.dart';
+import 'package:sahyog/currently_working/global_variables.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -16,7 +16,7 @@ class CustomButton extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(5)),
-            color: GlobalVariables.secondaryColor),
+            color: GV.primaryColor),
         child: FlatButton(
           splashColor: Colors.transparent,
           focusColor: Colors.transparent,

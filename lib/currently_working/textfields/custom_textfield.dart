@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:sahyog/commons/constants/global_variables.dart';
+
+import 'package:sahyog/currently_working/global_variables.dart';
 
 class CustomTextField extends StatelessWidget {
-  final TextEditingController controller;
+//  final TextEditingController controller;
   final String hintText;
   final IconData preIcon;
   final bool isPasswordType;
@@ -12,7 +13,7 @@ class CustomTextField extends StatelessWidget {
 
   const CustomTextField({
     Key? key,
-    required this.controller,
+    //   required this.controller,
     required this.hintText,
     required this.preIcon,
     required this.isPasswordType,
@@ -25,9 +26,9 @@ class CustomTextField extends StatelessWidget {
       elevation: 2.0,
       borderRadius: BorderRadius.all(Radius.circular(10)),
       child: TextFormField(
-        controller: controller,
+        //   controller: controller,
         onChanged: (String value) {},
-        cursorColor: GlobalVariables.secondaryColor,
+        cursorColor: GV.primaryColor,
         obscureText: isPasswordType,
         keyboardType: keyboardType,
         decoration: InputDecoration(
@@ -37,7 +38,7 @@ class CustomTextField extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(30)),
             child: Icon(
               preIcon,
-              color: GlobalVariables.secondaryColor,
+              color: GV.primaryColor,
             ),
           ),
           border: InputBorder.none,
